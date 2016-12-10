@@ -7,7 +7,19 @@
    [kernel,
     stdlib
    ]},
-  {env,[]},
+  {env,[
+   {pools, [
+    % Pool 1
+    {pypool, % Name
+     [{size, 10}, {max_overflow, 20}], % SizeArgs
+     [ % WorkerArgs e.g. db setup or other stuff for the workers
+      {hostname, "127.0.0.1"},
+      {database, "db1"},
+      {username, "db1"},
+      {password, "abc123"}]
+    }
+   ]}
+  ]},
   {modules, []},
 
   {maintainers, []},
