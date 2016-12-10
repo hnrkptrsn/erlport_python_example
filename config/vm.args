@@ -1,0 +1,6 @@
+-sname erlport_python_example
+
+-setcookie erlport_python_example_cookie
+
++K true
++A30
