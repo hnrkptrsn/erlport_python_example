@@ -1,6 +1,5 @@
 .rebar3
 _*
-!__init__.py
 .eunit
 *.o
 *.beam
@@ -15,3 +14,10 @@ erl_crash.dump
 logs
 _build
 .idea
+
+# Python stuff
+!__init__.py
+**/build/**
+**/*.egg-info/**
+**/dist/**
+
