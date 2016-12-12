@@ -26,4 +26,4 @@ _build
 
 # Fortune cookie example cloned during setup.sh
 **/fortune
-
+**/fortunes

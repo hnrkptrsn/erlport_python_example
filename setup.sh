@@ -14,6 +14,7 @@ cd $OLDPATH/priv
 
 # Fortune cookie dependency
 git clone https://github.com/spasticVerbalizer/fortune.git
+git clone https://github.com/bmc/fortunes/
 
 cd fortune
 

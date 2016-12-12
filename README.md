@@ -26,5 +26,11 @@ Check that we have loaded everything ok.
 
 open in a browser and point it at http://localhost:8080/fortune
 
+Run
+---
 
+Running outside the setup.sh shell script.
+
+	source priv/erlpy3env/bin/activate
+	rebar3 shell
 	
