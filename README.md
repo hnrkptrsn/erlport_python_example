@@ -33,4 +33,15 @@ Running outside the setup.sh shell script.
 
 	source priv/erlpy3env/bin/activate
 	rebar3 shell
+
+Test
+----
 	
+Just a plain python3 call to get the version.
+
+		> pysimple:version().
+
+Actually call the script we have installed locally.
+
+		> pysimple:example().
+		> pysimple:fortune().
