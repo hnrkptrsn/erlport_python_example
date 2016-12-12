@@ -21,3 +21,9 @@ _build
 **/*.egg-info/**
 **/dist/**
 
+# Python virtual env setup
+**/erlpy3env
+
+# Fortune cookie example cloned during setup.sh
+**/fortune
+
