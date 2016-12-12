@@ -65,7 +65,7 @@ init(Args) ->
 
   process_flag(trap_exit, true),
 
-  {ok, P} = python:start(),% start python proc and add to state
+  {ok, P} = python:start([{python, "python3"}]),% start python proc and add to state
 
   {ok, #state{python=P}}.
 
@@ -88,7 +88,11 @@ handle_call({call_python, Data}, _From, #state{python=Python}) ->
 
   lager:info("call_python [~p]~n", [Data]),
 
-  {reply, ok, #state{python=Python}}.
+  Result = python:call(Python, test, myfortune, []),
+
+  UniBin = unicode:characters_to_binary(Result),
+
+  {reply, {ok, UniBin}, #state{python=Python}}.
 
 
 %%--------------------------------------------------------------------

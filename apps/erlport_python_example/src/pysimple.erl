@@ -11,23 +11,25 @@
 
 %% API
 -export([test/0]).
--export([simple_sqrt/1, simple_add/2]).
--export([main/0, show_list/2]).
+-export([simple_sqrt/1, simple_add/2, version/0]).
+-export([example/0, fortune/0]).
 
 test() ->
   42.
 
 simple_sqrt(A) ->
   % Make Python library calls
-  {ok, Pid} = python:start(),
+  {ok, Pid} = python:start([{python, "python3"}]), % python:start() gives you the default
 
   Result = python:call(Pid, math, sqrt, [A]),
 
   {ok, Result}.
 
+simple_add(0, B) -> {ok, B};
+simple_add(A, 0) -> {ok, A};
 simple_add(A, B) ->
   % A bit wasteful to start and stop a process like this but you could
-  {ok, Pid} = python:start(),
+  {ok, Pid} = python:start([{python, "python3"}]),
 
   Result = python:call(Pid, operator, add, [A,B]),
 
@@ -37,14 +39,38 @@ simple_add(A, B) ->
 
   {ok, Result}.
 
+version() ->
+  {ok, Pid} = python:start([{python, "python3"}]),
 
-main() ->
-  {ok, Pid} = python:start(),
-  {ok, Result} = python:call(Pid, 'py_math_01', main, []),
-  show_list(Result, 1),
-  ok.
+  Result = python:call(Pid, sys, 'version.__str__', []),
 
-show_list([], _) -> ok;
-show_list([Item|Items], Count) ->
-  io:format("~p. Item: ~p~n", [Count, Item]),
-  show_list(Items, Count + 1).
+  python:stop(Pid),
+
+  lager:info("Result from python ~p~n", [Result]),
+
+  {ok, Result}.
+
+example() ->
+  {ok, Pid} = python:start([{python, "python3"}]),
+
+  Result = python:call(Pid, test, example, []),
+
+  python:stop(Pid),
+
+  lager:info("Result from python ~p~n", [Result]),
+
+  {ok, Result}.
+
+fortune() ->
+  {ok, Pid} = python:start([{python, "python3"}]),
+
+  Result = python:call(Pid, test, myfortune, []),
+
+  python:stop(Pid),
+
+  UniBin = unicode:characters_to_binary(Result),
+
+  lager:info("Result from python ~p~n", [UniBin]),
+
+  {ok, UniBin}.
+
