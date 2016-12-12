@@ -5,7 +5,8 @@
   {mod, { erlport_python_example_app, []}},
   {applications,
    [kernel,
-    stdlib
+    stdlib,
+    cowboy
    ]},
   {env,[
    {pools, [
