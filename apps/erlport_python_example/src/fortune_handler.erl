@@ -15,7 +15,7 @@
 init(Req0, State) ->
   %Method = cowboy_req:method(Req0),
 
-  {ok, Fortune} = erlport_python_example_app:call_python(pypool, []),
+  {ok, Fortune} = pyworker:fortune(),
 
   AlteredFortune = binary_to_list(<<"Fortune:\n\n">>) ++ binary_to_list(Fortune),
 

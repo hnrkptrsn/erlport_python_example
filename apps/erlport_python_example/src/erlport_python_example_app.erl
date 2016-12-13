@@ -10,7 +10,7 @@
 
 %% Application callbacks
 -export([start/2, stop/1]).
--export([init/1, call_python/2]).
+-export([init/1]).
 
 %%====================================================================
 %% API
@@ -59,16 +59,4 @@ init([]) ->
 
     {ok, {{one_for_one, 10, 10}, PoolSpecs}}.
 
-%
-% API
-%
-call_python(PoolName, Data) ->
-    lager:info("python called"),
-
-    % Might wrap this in API on the pyworker - not a lambda here :(
-    poolboy:transaction(
-        PoolName,
-        fun(Worker) ->
-            gen_server:call(Worker, {call_python, Data})
-        end).
 

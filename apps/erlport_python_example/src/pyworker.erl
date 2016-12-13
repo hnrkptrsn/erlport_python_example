@@ -22,6 +22,8 @@
   terminate/2,
   code_change/3]).
 
+-export([fortune/0]).
+
 -define(SERVER, ?MODULE).
 
 -record(state, {python}).
@@ -29,6 +31,21 @@
 %%%===================================================================
 %%% API
 %%%===================================================================
+
+%
+% API
+%
+fortune() -> call_python(pypool, []).
+
+call_python(PoolName, Data) ->
+  lager:info("python called"),
+
+  % Might wrap this in API on the pyworker - not a lambda here :(
+  poolboy:transaction(
+    PoolName,
+    fun(Worker) ->
+      gen_server:call(Worker, {call_python, Data})
+    end).
 
 %%--------------------------------------------------------------------
 %% @doc

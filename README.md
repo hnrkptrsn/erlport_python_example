@@ -92,7 +92,6 @@ apps/src/erlport_python_example_app.erl
 
 	start, sets up cowboy which we use for showing fortunes. (demoability)
 	init, reads the arguments and sets up the pool with poolboy.
-	call_python, wraps a gen_server call in a poolboy transaction. (check-out, call, check-in)
 
 apps/src/erlport_python_example_sup.erl
 
@@ -109,7 +108,7 @@ apps/src/fortune_handler.erl
 	Simples cowboy setup, calls the Python process, formats the answer and returns it to the client.
 	And the call to the Python is via 
 	
-		erlport_python_example_app:call_python(pypool, [])
+		pywoker:fortune()
 	
 	Specify the pool name and any parameters.
 	
@@ -122,6 +121,10 @@ apps/src/pyworker.erl
 	handle_call, the 'meat' of the gen_server in this case, get your python pid from the state
 		and call your functions, return some interesting result.
 	
+	call_python, wraps a gen_server call in a poolboy transaction. (check-out, call, check-in)
+	
+	fortune, which makes the concrete call_python call with the correct pool name.
+
 apps/src/pysimple.erl
 
 	The pattern is start a Python process, make a call using the process id, stop it after use.
