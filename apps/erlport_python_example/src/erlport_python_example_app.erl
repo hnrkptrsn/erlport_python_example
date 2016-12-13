@@ -65,7 +65,7 @@ init([]) ->
 call_python(PoolName, Data) ->
     lager:info("python called"),
 
-    % Might wrap this in API on the calculate_worker - not a lambda here :(
+    % Might wrap this in API on the pyworker - not a lambda here :(
     poolboy:transaction(
         PoolName,
         fun(Worker) ->
