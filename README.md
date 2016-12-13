@@ -94,6 +94,16 @@ apps/src/erlport_python_example_app.erl
 	init, reads the arguments and sets up the pool with poolboy.
 	call_python, wraps a gen_server call in a poolboy transaction. (check-out, call, check-in)
 
+apps/src/erlport_python_example_sup.erl
+
+	This obviously needs to be tweaked to your particular needs.
+	
+	one_for_one == If a child process terminates, only that process is restarted.
+	If more than MaxR==10 number of restarts occur in the last MaxT==10 seconds, 
+	the supervisor terminates all the child processes and then itself.
+	 
+	NOTE that MaxR and MaxT should be a lot bigger for a production setup. :)
+
 apps/src/fortune_handler.erl
 
 	Simples cowboy setup, calls the Python process, formats the answer and returns it to the client.

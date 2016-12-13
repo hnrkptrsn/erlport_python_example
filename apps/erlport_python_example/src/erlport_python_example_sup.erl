@@ -28,6 +28,13 @@ start_link() ->
 
 %% Child :: {Id,StartFunc,Restart,Shutdown,Type,Modules}
 init([]) ->
+	% 
+	% one_for_one == If a child process terminates, only that process is restarted.
+	% If more than MaxR==10 number of restarts occur in the last MaxT==10 seconds, 
+	% the supervisor terminates all the child processes and then itself.
+	% 
+	% NOTE that MaxR and MaxT should be a lot bigger for a production setup. :)
+	%
     {ok, { {one_for_one, 10, 10}, []} }.
 
 %%====================================================================
